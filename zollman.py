@@ -47,10 +47,12 @@ def timestepFunction(model: AgentModel):
     model.set_graph(graph)
 
 
-# Recreating the Zollman Model
-model = AgentModel()
-model.update_parameters({"a_objective": 0.49, "b_objective": 0.51, "num_trials": 1})
+def constructModel() -> AgentModel:
+    # Recreating the Zollman Model
+    model = AgentModel()
+    model.update_parameters({"a_objective": 0.49, "b_objective": 0.51, "num_trials": 1})
 
-model.set_initial_data_function(genInitialZollmanData)
-model.set_timestep_function(timestepFunction)
-model.initialize_graph()
+    model.set_initial_data_function(genInitialZollmanData)
+    model.set_timestep_function(timestepFunction)
+
+    return model

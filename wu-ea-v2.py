@@ -196,31 +196,21 @@ def generateTimestepData(model: AgentModel):
     model.set_graph(graph)
 
 
-model = AgentModel()
-model.set_initial_data_function(generateInitialData)
-model.set_timestep_function(generateTimestepData)
-# We can also define our parameters with this helper function
-model.update_parameters(
-    {
-        "num_nodes": 40,
-        "proportion_marginalized": float(1 / 6),
-        "num_pulls": 1,
-        "objective_b": 0.51,
-        "p_ingroup": 0.7,
-        "p_outgroup": 0.3,
-        "degree_devaluation": 0.2,
-    }
-)
+def constructModel() -> AgentModel:
+    model = AgentModel()
+    # We can also define our parameters with this helper function
+    model.update_parameters(
+        {
+            "num_nodes": 40,
+            "proportion_marginalized": float(1 / 6),
+            "num_pulls": 1,
+            "objective_b": 0.51,
+            "p_ingroup": 0.7,
+            "p_outgroup": 0.3,
+            "degree_devaluation": 0.2,
+        }
+    )
+    model.set_initial_data_function(generateInitialData)
+    model.set_timestep_function(generateTimestepData)
 
-
-# Initialize the graph
-model.initialize_graph()
-
-# Run for loop for number of timesteps
-timesteps = 100
-
-for _ in range(timesteps):
-    model.timestep()
-
-# Print results
-print(model.get_graph())
+    return model
